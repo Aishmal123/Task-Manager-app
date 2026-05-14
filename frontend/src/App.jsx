@@ -1,12 +1,22 @@
-import Navbar from "./components/Navbar.jsx"
+// src/App.jsx
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Navbar from "./components/Navbar";
 
-
-const App = () => {
+export default function App() {
   return (
-    <div>
-  <Navbar />
-    </div>
-  )
-}
+      <>
+      <Navbar />
+    <Routes>
+      {/* Default route */}
+      <Route path="/" element={<Navigate to="/login" />} />
 
-export default App
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+    </Routes>
+    </>
+  );
+}
