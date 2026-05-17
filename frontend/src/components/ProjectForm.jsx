@@ -1,19 +1,13 @@
-
 import { useState } from "react";
 import API from "../api";
 
 export default function ProjectForm({ onProjectCreated }) {
-  const [project, setProject] = useState({
-    name: "",
-    description: "",
-  });
-
+  const [project, setProject] = useState({ name: "", description: "" });
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation
     if (!project.name || !project.description) {
       alert("Please fill all fields");
       return;
@@ -21,75 +15,55 @@ export default function ProjectForm({ onProjectCreated }) {
 
     try {
       setLoading(true);
-
-      // API Call
       const res = await API.post("/projects", project);
-
-      // Success Message
-      alert("✅ Project created successfully!");
-
+      alert("Project created successfully!");
       console.log("Created Project:", res.data);
-
-      // Clear form
-      setProject({
-        name: "",
-        description: "",
-      });
-
-      // Notify parent component
-      if (onProjectCreated) {
-        onProjectCreated(res.data);
-      }
-
+      setProject({ name: "", description: "" });
+      if (onProjectCreated) onProjectCreated(res.data);
     } catch (err) {
       console.error(err);
-
-      alert(
-        "❌ Error: " +
-          (err.response?.data?.message || "Something went wrong")
-      );
+      alert(" Error: " + (err.response?.data?.message || "Something went wrong"));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white p-4 rounded shadow mb-4"
-    >
-      <h2 className="text-xl font-bold mb-4">Add Project</h2>
+    <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+      <form onSubmit={handleSubmit} className="space-y-3">
 
-      <input
-        type="text"
-        placeholder="Project Name"
-        className="w-full p-2 mb-2 border rounded"
-        value={project.name}
-        onChange={(e) =>
-          setProject({ ...project, name: e.target.value })
-        }
-      />
+        <div className="flex flex-col gap-1">
+          <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Project Name</label>
+          <input
+            type="text"
+            placeholder="e.g. Website Redesign"
+            value={project.name}
+            onChange={(e) => setProject({ ...project, name: e.target.value })}
+            className="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 transition-all"
+            required
+          />
+        </div>
 
-      <input
-        type="text"
-        placeholder="Description"
-        className="w-full p-2 mb-2 border rounded"
-        value={project.description}
-        onChange={(e) =>
-          setProject({
-            ...project,
-            description: e.target.value,
-          })
-        }
-      />
+        <div className="flex flex-col gap-1">
+          <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Description</label>
+          <input
+            type="text"
+            placeholder="What is this project about?"
+            value={project.description}
+            onChange={(e) => setProject({ ...project, description: e.target.value })}
+            className="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 transition-all"
+            required
+          />
+        </div>
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-      >
-        {loading ? "Adding..." : "Add Project"}
-      </button>
-    </form>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-emerald-500 hover:bg-emerald-600 disabled:bg-slate-200 disabled:text-slate-400 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors cursor-pointer disabled:cursor-not-allowed"
+        >
+          {loading ? "Creating..." : "Create Project"}
+        </button>
+      </form>
+    </div>
   );
 }
