@@ -153,7 +153,7 @@ const handleUpdate = async (id) => {
                   <h3 className={`text-sm font-semibold text-slate-800 leading-snug flex-1 ${task.completed ? "line-through text-slate-400" : ""}`}>
                     {task.title}
                   </h3>
-                  <div className="flex gap-3 flex-shrink-0">
+                  <div className="flex gap-3 shrink-0">
                     <button
                       onClick={() => startEdit(task)}
                       className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors bg-transparent border-none cursor-pointer text-sm"

@@ -22,7 +22,7 @@ export default function ProjectForm({ onProjectCreated }) {
       if (onProjectCreated) onProjectCreated(res.data);
     } catch (err) {
       console.error(err);
-      alert(" Error: " + (err.response?.data?.message || "Something went wrong"));
+      alert("Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -36,7 +36,7 @@ export default function ProjectForm({ onProjectCreated }) {
           <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Project Name</label>
           <input
             type="text"
-            placeholder="e.g. Website Redesign"
+            placeholder="Enter your project name here"
             value={project.name}
             onChange={(e) => setProject({ ...project, name: e.target.value })}
             className="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 transition-all"
@@ -48,7 +48,7 @@ export default function ProjectForm({ onProjectCreated }) {
           <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Description</label>
           <input
             type="text"
-            placeholder="What is this project about?"
+            placeholder=" Add your Project"
             value={project.description}
             onChange={(e) => setProject({ ...project, description: e.target.value })}
             className="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 transition-all"
@@ -59,7 +59,7 @@ export default function ProjectForm({ onProjectCreated }) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-emerald-500 hover:bg-emerald-600 disabled:bg-slate-200 disabled:text-slate-400 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors cursor-pointer disabled:cursor-not-allowed"
+          className="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-slate-200 disabled:text-slate-400 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors cursor-pointer disabled:cursor-not-allowed"
         >
           {loading ? "Creating..." : "Create Project"}
         </button>

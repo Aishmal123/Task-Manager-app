@@ -1,10 +1,13 @@
 import { useState } from "react";
 import API from "../api";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,7 +16,7 @@ export default function Register() {
     try {
       await API.post("/user/register", form);
       alert("Registered successfully! Please login.");
-      window.location = "/login";
+      navigate("/login");
     } catch (err) {
   console.log(err);
   setError("Registration failed. password should be 8 character long.");

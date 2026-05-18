@@ -60,7 +60,7 @@ export default function TasksPage() {
           </button>
         </div>
 
-        {/* FILTER TABS */}
+        
         <div className="flex gap-2 mb-6 border-b border-slate-200 pb-0">
           {tabs.map(({ key, label, count }) => (
             <button
@@ -82,7 +82,7 @@ export default function TasksPage() {
           ))}
         </div>
 
-        {/* TASK LIST */}
+      
         {loading ? (
           <div className="flex items-center justify-center py-20">
             <p className="text-sm text-slate-400 animate-pulse">Loading tasks...</p>

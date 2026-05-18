@@ -1,16 +1,12 @@
 import { useNavigate } from "react-router-dom";
 
-const Navbar = ({ tasks = [], onLogout }) => {
+const Navbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    if (onLogout) {
-      onLogout();
-    } else {
-      localStorage.clear();
-      window.location = "/login";
-    }
-  };
+  localStorage.clear();
+  navigate("/login");
+};
 
   return (
     <header className="bg-white border-b border-slate-200 px-6 flex items-center justify-between h-14 sticky top-0 z-10 shadow-sm">
@@ -23,11 +19,11 @@ const Navbar = ({ tasks = [], onLogout }) => {
           className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors cursor-pointer border-none"
         >
            View Tasks
-          {tasks.length > 0 && (
+          {/* {tasks.length > 0 && (
             <span className="bg-white text-indigo-600 text-xs font-bold rounded-full px-1.5 py-0.5 leading-none">
               {tasks.length}
-            </span>
-          )}
+            </span> 'tasks = [],'
+          )} */}
         </button>
         <button
           onClick={handleLogout}
