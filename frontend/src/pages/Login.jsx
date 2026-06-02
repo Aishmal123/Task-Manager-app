@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import API from "../api";
 import { useNavigate } from "react-router-dom";
 
@@ -7,6 +7,13 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,7 +22,8 @@ export default function Login() {
     try {
       const res = await API.post("/user/login", form);
       localStorage.setItem("token", res.data.token);
-      navigate("/dashboard") ;
+      localStorage.setItem("keepLoggedIn",JSON.stringify(true));
+navigate("/dashboard", { replace: true });
     } catch (err) {
   console.log(err);
   setError("Login failed. Please check your email and password.");
